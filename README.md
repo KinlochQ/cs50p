@@ -8,3 +8,11 @@ convert to mp4 video
 
 gets highest quality available
 
+
+# Prerequisites
+
+Run the following command in the terminal after navigating to the project's directory:
+
+```
+pip install -r requirements.txt
+```
