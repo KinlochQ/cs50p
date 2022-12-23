@@ -1,9 +1,8 @@
 from tkinter import *
 from tkinter import filedialog
-from moviepy.editor import VideoFileClip
 from pytube import YouTube
 import shutil
-from pytube.cli import on_progress
+
 
 screen = Tk()
 screen.title("Youtube downloader")
@@ -21,16 +20,14 @@ def download_mp4():
     get_link = link_field.get()
     #get selected path
     user_path = path_label.cget("text")
+    #check for valid link
     try:
         mp4_video = YouTube(get_link).streams.get_highest_resolution()
-    #close video file
     except:
         error_label=Label(screen, text = "Url Invalid")
         canvas.create_window(250,250 ,window = error_label)
         raise TypeError
-    
-    
-    
+    #download mp4
     mp4 = mp4_video.download()
     shutil.move(mp4,user_path)
     screen.title("download complete! Download Another file....")
@@ -41,15 +38,14 @@ def download_mp3():
     get_link = link_field.get()
     #get selected path
     user_path = path_label.cget("text")
-    #download video
+    #check for valid link
     try:
         mp3_audio = YouTube(get_link).streams.filter( only_audio = True).first()
-    #close video file
     except:
         error_label = Label(screen, text = "Url Invalid")
         canvas.create_window(250,250 ,window = error_label)
         raise TypeError
-    
+    #download mp3
     mp3 = mp3_audio.download()
     shutil.move(mp3,user_path)
     screen.title("download complete! Download Another file....")
@@ -80,11 +76,11 @@ canvas.create_window(250,330, window= select_button)
 canvas.create_window(250,170, window = link_label)
 canvas.create_window(250,220,window= link_field)
 
-
+#add mp4_button
 mp4_button = Button(screen, text = "Download mp4 format", command = download_mp4)
 canvas.create_window(250,440 ,window = mp4_button)
 
-
+#add mp3_button
 mp3_button = Button(screen,text = "Download mp3 format", command = download_mp3)
 canvas.create_window(250,490 ,window = mp3_button)
 
