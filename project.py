@@ -55,7 +55,7 @@ canvas = Canvas(screen, width = 500, height = 500)
 canvas.pack()
 
 #image logo
-Logo_image = PhotoImage(file = "youtube.jpg")
+Logo_image = PhotoImage(file = "img\youtube.jpg")
 #resize image
 Logo_image = Logo_image.subsample(3,3)
 canvas.create_image("250","80",image = Logo_image)
