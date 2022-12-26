@@ -1,7 +1,10 @@
 from tkinter import *
 from tkinter import filedialog
 from pytube import YouTube
+from moviepy import *
+from moviepy.editor import VideoClip
 import shutil
+
 
 
 screen = Tk()
@@ -22,13 +25,15 @@ def download_mp4():
     user_path = path_label.cget("text")
     #check for valid link
     try:
-        mp4_video = YouTube(get_link).streams.get_highest_resolution()
+        mp4_video = YouTube(get_link).streams.get_highest_resolution().download()
+        mp4 = VideoClip(mp4_video)
+        mp4.close()
     except:
         error_label=Label(screen, text = "Url Invalid")
         canvas.create_window(250,250 ,window = error_label)
         raise TypeError
     #download mp4
-    mp4 = mp4_video.download()
+    #
     shutil.move(mp4,user_path)
     screen.title("download complete! Download Another file....")
 
